@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.techtown.receiver">
+
+
+<!--    RECEIVE_SMS 권한 추가-->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".SmsActivity"></activity>
+
+<!--        receiver 태그 안에 intent-filter 태그를 넣어 어떤 인텐트를 받을 것인지 지정-->
+<!--        intent-filter 태그 안에 action 태그를 추가하고-->
+<!--        android:name 속성 값으로 "android.provider.Telephony.SMS_RECEIVED"를 넣는다.-->
+<!--        이것은 sms 메시지가 들어간 인텐트를 구분하기 위한 액션 정보이다.-->
+<!--        즉 단말에서 sms 를 수신했을 때 이 action 정조가 들어간 인텐트를 전달하므로-->
+<!--        이 값을 넣어주면 sms 를 받아볼 수 있다.-->
+        <receiver
+            android:name=".SmsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
