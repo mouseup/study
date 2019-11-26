@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--dimens.xml - 크기 값 등 정의-->
+<!--소스 코드에서 참조할 때는 Resources 객체의 getDimension() 메서드 사용-->
+<resources>
+    <dimen name="text_size">16sp</dimen>
+</resources>
