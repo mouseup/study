@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--startOffset - 애니메이션이 시작한지 얼마 후에 이 액셕인 수행될지 지정
+    duration - 애미메이션이 지속되는 시간(2500은 2.5초)
+    scale 태그 - 대상을 확대하거나 축소할 때사용
+    android:pivotX="50%" x축
+    android:pivotY="50%" y축
+    android:fromXScale="1.0" 시작할 때의 확대/축소 비율
+    android:fromYScale="1.0" 시작할 때의 확대/축소 비율
+    android:toXScale="2.0" 끝날 때의 확대/축소 비율
+    android:toYScale="2.0" 끝날 때의 확대/축소 비율
+    1.0 에서 시작하여 2.0으로 끝나므로 원래의 크기에서 두배의 크기로 확대
+    -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <scale
+        android:duration="2500"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:toXScale="2.0"
+        android:toYScale="2.0"
+        />
+</set>

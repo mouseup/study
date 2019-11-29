@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    투명도 액션-->
+<!--    android:fromAlpha="0.0" 완전히 투명한 상태-->
+<!--    android:toAlpha="1.0" 완전히 보이는 상태-->
+<!--    android:duration="10000"-->
+
+
+
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="10000"
+        />
+</set>
