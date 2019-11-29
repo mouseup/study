@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    바탕 레이아웃-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff5555ff"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Base Area"
+            android:textColor="#ffffffff" />
+
+    </LinearLayout>
+
+<!--    슬아이딩으로 보일 레이아웃-->
+<!--    android:visibility="gone" 처음에는 보이지 않게 설정-->
+    <LinearLayout
+        android:id="@+id/page"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="#ffffff66"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Area #1"
+            android:textColor="#ff000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Area #2"
+            android:textColor="#ff000000" />
+
+    </LinearLayout>
+
+<!--    버튼이 들어있는 레이아웃-->
+<!--    배경색을 투명으로 하여 버튼만 보이게 함-->
+<!--    layout_gravity="right|center_vertical" 버튼은 화면의 오른쪽 중간에 위치-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:background="#00000000"
+        android:orientation="vertical">
+
+<!--        오픈/클로즈 버튼-->
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open" />
+
+    </LinearLayout>
+
+</FrameLayout>
