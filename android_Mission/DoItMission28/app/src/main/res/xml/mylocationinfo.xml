@@ -1,0 +1,12 @@
+
+<!--android:minWidth="294dp" 앱 위젯으로 표현될 뷰의 최소 폭-->
+<!--    android:minHeight="72dp" 앱 위젯으로 표현될 뷰의 최소 높이-->
+<!--    android:updatePeriodMillis="1800000" 위젯을 업데이트할 시간 간격-->
+<!--    android:initialLayout="@layout/mylocation"> 앱 위젯으로 표현될 뷰의 레이아웃 리소스 지정-->
+
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="294dp"
+    android:minHeight="72dp"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/mylocation">
+</appwidget-provider>
