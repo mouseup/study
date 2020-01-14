@@ -8,7 +8,21 @@
     android:orientation="vertical"
     tools:context="com.aso.shoppinghistory.Fragment1">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
+        <Button
+            android:id="@+id/todayWriteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/select_button"
+            android:text="쇼핑적기"
+            android:textColor="@android:color/white"/>
+
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
