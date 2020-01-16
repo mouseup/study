@@ -160,6 +160,11 @@ public class Fragment2 extends Fragment {
         pictureImageView.setImageBitmap(resultPhotoBitmap);
     }
 
+    public void setItem(Note item) {
+        this.item = item;
+    }
+
+
     public void applyItem() {
         AppConstants.println("applyItem called.");
 
