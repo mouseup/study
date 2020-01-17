@@ -73,15 +73,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
     static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout layout2;
 
-        ImageView moodImageView2;
-
         ImageView pictureImageView;
 
-        ImageView weatherImageView2;
-
         TextView contentsTextView2;
-
-        TextView locationTextView2;
 
         TextView dateTextView2;
 
@@ -91,15 +85,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
 
             layout2 = itemView.findViewById(R.id.layout2);
 
-            moodImageView2 = itemView.findViewById(R.id.moodImageView2);
-
             pictureImageView = itemView.findViewById(R.id.pictureImageView);
 
-            weatherImageView2 = itemView.findViewById(R.id.weatherImageView2);
 
             contentsTextView2 = itemView.findViewById(R.id.contentsTextView2);
 
-            locationTextView2 = itemView.findViewById(R.id.locationTextView2);
 
             dateTextView2 = itemView.findViewById(R.id.dateTextView2);
 
@@ -118,9 +108,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
         }
 
         public void setItem(Note item) {
-            String mood = item.getMood();
-            int moodIndex = Integer.parseInt(mood);
-            setMoodImage(moodIndex);
 
             String picturePath = item.getPicture();
             if (picturePath != null && !picturePath.equals("")) {
@@ -133,69 +120,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
 
             }
 
-            // set weather
-            String weather = item.getWeather();
-            int weatherIndex = Integer.parseInt(weather);
-            setWeatherImage(weatherIndex);
-
             contentsTextView2.setText(item.getContents());
-
-            locationTextView2.setText(item.getAddress());
 
             dateTextView2.setText(item.getCreateDateStr());
         }
 
-        public void setMoodImage(int moodIndex) {
-            switch(moodIndex) {
-                case 0:
-                    moodImageView2.setImageResource(R.drawable.smile1_48);
-                    break;
-                case 1:
-                    moodImageView2.setImageResource(R.drawable.smile2_48);
-                    break;
-                case 2:
-                    moodImageView2.setImageResource(R.drawable.smile3_48);
-                    break;
-                case 3:
-                    moodImageView2.setImageResource(R.drawable.smile4_48);
-                    break;
-                case 4:
-                    moodImageView2.setImageResource(R.drawable.smile5_48);
-                    break;
-                default:
-                    moodImageView2.setImageResource(R.drawable.smile3_48);
-                    break;
-            }
-        }
-
-        public void setWeatherImage(int weatherIndex) {
-            switch(weatherIndex) {
-                case 0:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_1);
-                    break;
-                case 1:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_2);
-                    break;
-                case 2:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_3);
-                    break;
-                case 3:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_4);
-                    break;
-                case 4:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_5);
-                    break;
-                case 5:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_6);
-                    break;
-                case 6:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_7);
-                    break;
-                default:
-                    weatherImageView2.setImageResource(R.drawable.weather_icon_1);
-                    break;
-            }
-        }
 
         public void setLayoutType(int layoutType) {
                 layout2.setVisibility(View.VISIBLE);

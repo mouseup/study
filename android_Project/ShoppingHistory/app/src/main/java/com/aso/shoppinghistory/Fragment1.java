@@ -19,17 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-/**
- * 날씨 아이콘
- *
- * ① 맑음
- * ② 구름 조금
- * ③ 구름 많음
- * ④ 흐림
- * ⑤ 비
- * ⑥ 눈/비
- * ⑦ 눈
- */
 public class Fragment1 extends Fragment {
     private static final String TAG = "Fragment1";
 
@@ -120,7 +109,7 @@ public class Fragment1 extends Fragment {
     public int loadNoteListData() {
         AppConstants.println("loadNoteListData called.");
 
-        String sql = "select _id, WEATHER, ADDRESS, LOCATION_X, LOCATION_Y, CONTENTS, MOOD, PICTURE, CREATE_DATE, MODIFY_DATE from " + NoteDatabase.TABLE_NOTE + " order by CREATE_DATE desc";
+        String sql = "select _id, CONTENTS, PICTURE, CREATE_DATE, MODIFY_DATE from " + NoteDatabase.TABLE_NOTE + " order by CREATE_DATE desc";
 
         int recordCount = -1;
         NoteDatabase database = NoteDatabase.getInstance(context);
@@ -136,14 +125,9 @@ public class Fragment1 extends Fragment {
                 outCursor.moveToNext();
 
                 int _id = outCursor.getInt(0);
-                String weather = outCursor.getString(1);
-                String address = outCursor.getString(2);
-                String locationX = outCursor.getString(3);
-                String locationY = outCursor.getString(4);
-                String contents = outCursor.getString(5);
-                String mood = outCursor.getString(6);
-                String picture = outCursor.getString(7);
-                String dateStr = outCursor.getString(8);
+                String contents = outCursor.getString(1);
+                String picture = outCursor.getString(2);
+                String dateStr = outCursor.getString(3);
                 String createDateStr = null;
                 if (dateStr != null && dateStr.length() > 10) {
                     try {
@@ -156,11 +140,7 @@ public class Fragment1 extends Fragment {
                     createDateStr = "";
                 }
 
-                AppConstants.println("#" + i + " -> " + _id + ", " + weather + ", " +
-                        address + ", " + locationX + ", " + locationY + ", " + contents + ", " +
-                        mood + ", " + picture + ", " + createDateStr);
-
-                items.add(new Note(_id, weather, address, locationX, locationY, contents, mood, picture, createDateStr));
+                items.add(new Note(_id, contents, picture, createDateStr));
             }
 
             outCursor.close();

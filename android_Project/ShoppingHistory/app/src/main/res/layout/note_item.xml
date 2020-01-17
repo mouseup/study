@@ -48,31 +48,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <ImageView
-                    android:id="@+id/moodImageView2"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentLeft="true"
-                    android:padding="5dp"
-                    app:srcCompat="@drawable/smile5_48" />
-
-                <ImageView
-                    android:id="@+id/weatherImageView2"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/moodImageView2"
-                    android:src="@drawable/weather_icon_1" />
-
-                <TextView
-                    android:id="@+id/locationTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="강남구 삼성동"
-                    android:textSize="16sp" />
-
                 <TextView
                     android:id="@+id/dateTextView2"
                     android:layout_width="wrap_content"

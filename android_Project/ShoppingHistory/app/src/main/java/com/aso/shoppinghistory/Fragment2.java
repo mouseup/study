@@ -38,7 +38,6 @@ public class Fragment2 extends Fragment {
 
 //    OnRequestListener requestListener;
 
-    ImageView weatherIcon;
     TextView dateTextView;
 
     EditText contentsInput;
@@ -53,14 +52,9 @@ public class Fragment2 extends Fragment {
     File file;
     Bitmap resultPhotoBitmap;
 
-//    int mMode = AppConstants.MODE_INSERT;
+    int mMode = AppConstants.MODE_INSERT;
 
     int _id = -1;
-
-    int weatherIndex = 0;
-
-    RangeSliderView moodSlider;
-    int moodIndex = 2;
 
     Note item;
 
@@ -88,6 +82,8 @@ public class Fragment2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Toast.makeText(context, "onCreateView called.", Toast.LENGTH_LONG).show();
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment2, container, false);
 
         initUI(rootView);
@@ -119,6 +115,13 @@ public class Fragment2 extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(mMode == AppConstants.MODE_INSERT) {
+                    saveNote();
+                } else if(mMode == AppConstants.MODE_MODIFY) {
+                    modifyNote();
+                }
+
                 if (listener != null) {
                     listener.onTabSelected(0);
                 }
@@ -129,6 +132,9 @@ public class Fragment2 extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                deleteNote();
+
                 if (listener != null) {
                     listener.onTabSelected(0);
                 }
@@ -169,6 +175,7 @@ public class Fragment2 extends Fragment {
         AppConstants.println("applyItem called.");
 
         if (item != null) {
+            mMode = AppConstants.MODE_MODIFY;
 
             String picturePath = item.getPicture();
             if (picturePath == null || picturePath.equals("")) {
@@ -178,6 +185,7 @@ public class Fragment2 extends Fragment {
             }
 
         } else {
+            mMode = AppConstants.MODE_INSERT;
 
             Date currentDate = new Date();
             String currentDateString = AppConstants.dateFormat3.format(currentDate);
@@ -400,5 +408,67 @@ public class Fragment2 extends Fragment {
 
         return picturePath;
     }
+
+    /**
+     * 데이터베이스 레코드 추가
+     */
+    private void saveNote() {
+        String contents = contentsInput.getText().toString();
+
+        String picturePath = savePicture();
+
+        String sql = "insert into " + NoteDatabase.TABLE_NOTE +
+                "(CONTENTS, PICTURE) values(" +
+                "'"+ contents + "', " +
+                "'"+ picturePath + "')";
+
+        Log.d(TAG, "sql : " + sql);
+        NoteDatabase database = NoteDatabase.getInstance(context);
+        database.execSQL(sql);
+
+    }
+
+    /**
+     * 데이터베이스 레코드 수정
+     */
+    private void modifyNote() {
+        if (item != null) {
+            String contents = contentsInput.getText().toString();
+
+            String picturePath = savePicture();
+
+            // update note
+            String sql = "update " + NoteDatabase.TABLE_NOTE +
+                    " set " +
+                    "   ,CONTENTS = '" + contents + "'" +
+                    "   ,PICTURE = '" + picturePath + "'" +
+                    " where " +
+                    "   _id = " + item._id;
+
+            Log.d(TAG, "sql : " + sql);
+            NoteDatabase database = NoteDatabase.getInstance(context);
+            database.execSQL(sql);
+        }
+    }
+
+
+    /**
+     * 레코드 삭제
+     */
+    private void deleteNote() {
+        AppConstants.println("deleteNote called.");
+
+        if (item != null) {
+            // delete note
+            String sql = "delete from " + NoteDatabase.TABLE_NOTE +
+                    " where " +
+                    "   _id = " + item._id;
+
+            Log.d(TAG, "sql : " + sql);
+            NoteDatabase database = NoteDatabase.getInstance(context);
+            database.execSQL(sql);
+        }
+    }
+
 
 }
