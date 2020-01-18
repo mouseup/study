@@ -1,5 +1,6 @@
 package com.aso.shoppinghistory;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.aso.shoppinghistory.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Fragment2 extends Fragment {
@@ -38,7 +41,7 @@ public class Fragment2 extends Fragment {
 
 //    OnRequestListener requestListener;
 
-    TextView dateTextView;
+    Button dateBtn;
 
     EditText contentsInput;
     ImageView pictureImageView;
@@ -84,6 +87,8 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Toast.makeText(context, "onCreateView called.", Toast.LENGTH_LONG).show();
+
+
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment2, container, false);
 
         initUI(rootView);
@@ -93,9 +98,39 @@ public class Fragment2 extends Fragment {
         return rootView;
     }
 
+    public void setDateString(String dateString) {
+        dateBtn.setText(dateString);
+    }
+
+
     private void initUI(ViewGroup rootView) {
 
-        dateTextView = rootView.findViewById(R.id.dateTextView);
+
+        Date currentDate = new Date();
+        String currentDateString = AppConstants.dateFormat5.format(currentDate);
+
+        dateBtn = rootView.findViewById(R.id.btn_date);
+        dateBtn.setText(currentDateString);
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //현재 날짜로 dialog를 띄우기 위해 날짜를 구함
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day=c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dateDialog=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        dateBtn.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                    }
+                }, year, month, day);
+                dateDialog.show();
+            }
+        });
+
 
         contentsInput = rootView.findViewById(R.id.contentsInput);
         pictureImageView = rootView.findViewById(R.id.pictureImageView);
@@ -154,8 +189,9 @@ public class Fragment2 extends Fragment {
 
     }
 
-    public void setDateString(String dateString) {
-        dateTextView.setText(dateString);
+
+    public void setContents(String data) {
+        contentsInput.setText(data);
     }
 
     public void setPicture(String picturePath, int sampleSize) {
@@ -177,6 +213,8 @@ public class Fragment2 extends Fragment {
         if (item != null) {
             mMode = AppConstants.MODE_MODIFY;
 
+            setDateString(item.getCreateDateStr());
+            setContents(item.getContents());
             String picturePath = item.getPicture();
             if (picturePath == null || picturePath.equals("")) {
                 pictureImageView.setImageResource(R.drawable.noimagefound);
@@ -188,7 +226,7 @@ public class Fragment2 extends Fragment {
             mMode = AppConstants.MODE_INSERT;
 
             Date currentDate = new Date();
-            String currentDateString = AppConstants.dateFormat3.format(currentDate);
+            String currentDateString = AppConstants.dateFormat5.format(currentDate);
             setDateString(currentDateString);
 
             contentsInput.setText("");
@@ -414,13 +452,14 @@ public class Fragment2 extends Fragment {
      */
     private void saveNote() {
         String contents = contentsInput.getText().toString();
-
+        String date = dateBtn.getText().toString();
         String picturePath = savePicture();
 
         String sql = "insert into " + NoteDatabase.TABLE_NOTE +
-                "(CONTENTS, PICTURE) values(" +
+                "(CONTENTS, PICTURE, CREATE_DATE) values(" +
                 "'"+ contents + "', " +
-                "'"+ picturePath + "')";
+                "'"+ picturePath + "', " +
+                "'"+ date + "')";
 
         Log.d(TAG, "sql : " + sql);
         NoteDatabase database = NoteDatabase.getInstance(context);
@@ -434,14 +473,16 @@ public class Fragment2 extends Fragment {
     private void modifyNote() {
         if (item != null) {
             String contents = contentsInput.getText().toString();
+            String date = dateBtn.getText().toString();
 
             String picturePath = savePicture();
 
             // update note
             String sql = "update " + NoteDatabase.TABLE_NOTE +
                     " set " +
-                    "   ,CONTENTS = '" + contents + "'" +
+                    "   CONTENTS = '" + contents + "'" +
                     "   ,PICTURE = '" + picturePath + "'" +
+                    "   ,CREATE_DATE = '" + date + "'" +
                     " where " +
                     "   _id = " + item._id;
 

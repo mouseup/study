@@ -1,5 +1,6 @@
 package com.aso.shoppinghistory;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.aso.shoppinghistory.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -25,6 +28,8 @@ public class Fragment1 extends Fragment {
     RecyclerView recyclerView;
     NoteAdapter adapter;
 
+    Button fromDate;
+    Button toDate;
     Context context;
     OnTabItemSelectedListener listener;
 
@@ -62,15 +67,56 @@ public class Fragment1 extends Fragment {
     }
 
 
+
     private void initUI(ViewGroup rootView) {
 
-        Button todayWriteButton = rootView.findViewById(R.id.todayWriteButton);
-        todayWriteButton.setOnClickListener(new View.OnClickListener() {
+        Date currentDate = new Date();
+        String currentDateString = AppConstants.dateFormat5.format(currentDate);
+
+        fromDate = rootView.findViewById(R.id.fromDate);
+        fromDate.setText(AppConstants.getMonthBefore(1));
+        fromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null) {
-                    listener.onTabSelected(1);
-                }
+                //현재 날짜로 dialog를 띄우기 위해 날짜를 구함
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day=c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dateDialog=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        fromDate.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                    }
+                }, year, month, day);
+                dateDialog.show();
+
+            }
+        });
+
+
+        toDate = rootView.findViewById(R.id.toDate);
+        toDate.setText(currentDateString);
+        toDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //현재 날짜로 dialog를 띄우기 위해 날짜를 구함
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day=c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dateDialog=new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        toDate.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                    }
+                }, year, month, day);
+                dateDialog.show();
+
             }
         });
 
@@ -140,7 +186,7 @@ public class Fragment1 extends Fragment {
                     createDateStr = "";
                 }
 
-                items.add(new Note(_id, contents, picture, createDateStr));
+                items.add(new Note(_id, contents, picture, dateStr));
             }
 
             outCursor.close();

@@ -8,21 +8,53 @@
     android:orientation="vertical"
     tools:context="com.aso.shoppinghistory.Fragment1">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp">
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/todayWriteButton"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/select_button"
-            android:text="쇼핑적기"
-            android:textColor="@android:color/white"/>
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="기간"
+            android:textSize="20sp" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/fromDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/select_button"
+            android:text="시작날짜"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="~"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/toDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/select_button"
+            android:text="끝날짜"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

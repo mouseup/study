@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AppConstants {
 
@@ -29,6 +31,16 @@ public class AppConstants {
     public static SimpleDateFormat dateFormat3 = new SimpleDateFormat("MM-dd");
     public static SimpleDateFormat dateFormat4 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static SimpleDateFormat dateFormat5 = new SimpleDateFormat("yyyy-MM-dd");
+
+
+    public static String getMonthBefore(int amount) {
+        Date todayDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(todayDate);
+        cal.add(java.util.Calendar.MONTH, (amount * -1));
+
+        return AppConstants.dateFormat5.format(cal.getTime());
+    }
 
 
     private static Handler handler = new Handler();

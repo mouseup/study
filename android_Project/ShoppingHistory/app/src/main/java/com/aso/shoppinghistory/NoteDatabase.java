@@ -148,7 +148,7 @@ public class NoteDatabase {
 		        			+ "  _id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, "
 		        			+ "  CONTENTS TEXT DEFAULT '', "
 		        			+ "  PICTURE TEXT DEFAULT '', "
-		        			+ "  CREATE_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
+		        			+ "  CREATE_DATE DEFAULT '', "
 							+ "  MODIFY_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP "
 		        			+ ")";
             try {

@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
                         return true;
                     case R.id.tab2:
                         Toast.makeText(getApplicationContext(), "두 번째 탭 선택됨", Toast.LENGTH_LONG).show();
+
+                        fragment2 = new Fragment2();
+
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.container, fragment2).commit();
 
