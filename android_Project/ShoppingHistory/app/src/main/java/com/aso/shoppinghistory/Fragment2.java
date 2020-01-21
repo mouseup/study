@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,7 @@ public class Fragment2 extends Fragment {
     int _id = -1;
 
     Note item;
-
+    Calendar c;
 
     @Override
     public void onAttach(Context context) {
@@ -115,7 +116,7 @@ public class Fragment2 extends Fragment {
             @Override
             public void onClick(View v) {
                 //현재 날짜로 dialog를 띄우기 위해 날짜를 구함
-                Calendar c = Calendar.getInstance();
+                c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day=c.get(Calendar.DAY_OF_MONTH);
@@ -124,7 +125,11 @@ public class Fragment2 extends Fragment {
 
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateBtn.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+
+                        c.set(year, monthOfYear, dayOfMonth);
+                        String currentDateString = AppConstants.dateFormat5.format(c.getTime());
+                        dateBtn.setText(currentDateString );
+
                     }
                 }, year, month, day);
                 dateDialog.show();
@@ -453,6 +458,7 @@ public class Fragment2 extends Fragment {
     private void saveNote() {
         String contents = contentsInput.getText().toString();
         String date = dateBtn.getText().toString();
+
         String picturePath = savePicture();
 
         String sql = "insert into " + NoteDatabase.TABLE_NOTE +

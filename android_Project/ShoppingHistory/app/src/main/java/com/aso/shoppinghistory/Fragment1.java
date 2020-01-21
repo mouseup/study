@@ -32,6 +32,7 @@ public class Fragment1 extends Fragment {
     Button toDate;
     Context context;
     OnTabItemSelectedListener listener;
+    Calendar c;
 
     @Override
     public void onAttach(Context context) {
@@ -79,7 +80,7 @@ public class Fragment1 extends Fragment {
             @Override
             public void onClick(View v) {
                 //현재 날짜로 dialog를 띄우기 위해 날짜를 구함
-                Calendar c = Calendar.getInstance();
+                c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day=c.get(Calendar.DAY_OF_MONTH);
@@ -88,7 +89,14 @@ public class Fragment1 extends Fragment {
 
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        fromDate.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+
+                        c.set(year, monthOfYear, dayOfMonth);
+                        String currentDateString = AppConstants.dateFormat5.format(c.getTime());
+                        fromDate.setText(currentDateString );
+
+                        // 데이터 로딩
+                        loadNoteListData();
+
                     }
                 }, year, month, day);
                 dateDialog.show();
@@ -103,7 +111,7 @@ public class Fragment1 extends Fragment {
             @Override
             public void onClick(View v) {
                 //현재 날짜로 dialog를 띄우기 위해 날짜를 구함
-                Calendar c = Calendar.getInstance();
+                c = Calendar.getInstance();
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day=c.get(Calendar.DAY_OF_MONTH);
@@ -112,7 +120,14 @@ public class Fragment1 extends Fragment {
 
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        toDate.setText(year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+
+                        c.set(year, monthOfYear, dayOfMonth);
+                        String currentDateString = AppConstants.dateFormat5.format(c.getTime());
+                        toDate.setText(currentDateString );
+
+                        // 데이터 로딩
+                        loadNoteListData();
+
                     }
                 }, year, month, day);
                 dateDialog.show();
@@ -155,7 +170,11 @@ public class Fragment1 extends Fragment {
     public int loadNoteListData() {
         AppConstants.println("loadNoteListData called.");
 
-        String sql = "select _id, CONTENTS, PICTURE, CREATE_DATE, MODIFY_DATE from " + NoteDatabase.TABLE_NOTE + " order by CREATE_DATE desc";
+        String sql = "select _id, CONTENTS, PICTURE, CREATE_DATE, MODIFY_DATE from " + NoteDatabase.TABLE_NOTE +
+//                " where create_date > '" + fromDate.getText().toString() + "' " +
+//                "  and create_date < '" + toDate.getText().toString() + "' " +
+                " order by CREATE_DATE desc";
+
 
         int recordCount = -1;
         NoteDatabase database = NoteDatabase.getInstance(context);
