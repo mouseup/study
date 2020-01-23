@@ -77,19 +77,21 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
 
         TextView contentsTextView2;
 
+        TextView itemMoney;
+
         TextView dateTextView2;
 
         public ViewHolder(View itemView, final OnNoteItemClickListener listener, int layoutType) {
             super(itemView);
 
-
+            // note_item.xml
             layout2 = itemView.findViewById(R.id.layout2);
 
             pictureImageView = itemView.findViewById(R.id.pictureImageView);
 
-
             contentsTextView2 = itemView.findViewById(R.id.contentsTextView2);
 
+            itemMoney = itemView.findViewById(R.id.itemMoney);
 
             dateTextView2 = itemView.findViewById(R.id.dateTextView2);
 
@@ -121,6 +123,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
             }
 
             contentsTextView2.setText(item.getContents());
+
+            itemMoney.setText(item.getEdtMoney());
 
             dateTextView2.setText(item.getCreateDateStr());
         }

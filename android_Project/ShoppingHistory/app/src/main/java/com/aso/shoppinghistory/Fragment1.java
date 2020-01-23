@@ -170,9 +170,9 @@ public class Fragment1 extends Fragment {
     public int loadNoteListData() {
         AppConstants.println("loadNoteListData called.");
 
-        String sql = "select _id, CONTENTS, PICTURE, CREATE_DATE, MODIFY_DATE from " + NoteDatabase.TABLE_NOTE +
-//                " where create_date > '" + fromDate.getText().toString() + "' " +
-//                "  and create_date < '" + toDate.getText().toString() + "' " +
+        String sql = "select _id, CONTENTS, MONEY, PICTURE, CREATE_DATE, MODIFY_DATE from " + NoteDatabase.TABLE_NOTE +
+                " where create_date >= '" + fromDate.getText().toString() + "' " +
+                "  and create_date <= '" + toDate.getText().toString() + "' " +
                 " order by CREATE_DATE desc";
 
 
@@ -191,8 +191,9 @@ public class Fragment1 extends Fragment {
 
                 int _id = outCursor.getInt(0);
                 String contents = outCursor.getString(1);
-                String picture = outCursor.getString(2);
-                String dateStr = outCursor.getString(3);
+                String money = Integer.toString(outCursor.getInt(2));
+                String picture = outCursor.getString(3);
+                String dateStr = outCursor.getString(4);
                 String createDateStr = null;
                 if (dateStr != null && dateStr.length() > 10) {
                     try {
@@ -205,7 +206,7 @@ public class Fragment1 extends Fragment {
                     createDateStr = "";
                 }
 
-                items.add(new Note(_id, contents, picture, dateStr));
+                items.add(new Note(_id, contents, money, picture, dateStr));
             }
 
             outCursor.close();

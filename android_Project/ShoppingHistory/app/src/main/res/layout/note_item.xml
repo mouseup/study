@@ -40,7 +40,14 @@
                 android:id="@+id/contentsTextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="내용"
+                android:text="품목"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/itemMoney"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="가격"
                 android:textSize="24sp" />
 
             <RelativeLayout

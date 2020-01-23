@@ -147,6 +147,7 @@ public class NoteDatabase {
         	String CREATE_SQL = "create table " + TABLE_NOTE + "("
 		        			+ "  _id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, "
 		        			+ "  CONTENTS TEXT DEFAULT '', "
+							+ "  MONEY INTEGER, "
 		        			+ "  PICTURE TEXT DEFAULT '', "
 		        			+ "  CREATE_DATE DEFAULT '', "
 							+ "  MODIFY_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP "

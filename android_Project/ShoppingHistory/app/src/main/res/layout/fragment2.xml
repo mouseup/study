@@ -55,8 +55,17 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:textSize="32sp"
-                    android:hint="내용 입력"
+                    android:hint="품목 입력"
                     />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edtMoney"
+                    android:maxLines="1"
+                    android:textSize="32sp"
+                    android:hint="가격 입력"
+                    android:inputType="number"/>
 
                 <ImageView
                     android:id="@+id/pictureImageView"

@@ -3,12 +3,14 @@ package com.aso.shoppinghistory;
 public class Note {
     int _id;
     String contents;
+    String money;
     String picture;
     String createDateStr;
 
-    public Note(int _id, String contents, String picture, String createDateStr) {
+    public Note(int _id, String contents, String money, String picture, String createDateStr) {
         this._id = _id;
         this.contents = contents;
+        this.money = money;
         this.picture = picture;
         this.createDateStr = createDateStr;
     }
@@ -28,6 +30,16 @@ public class Note {
     public void setContents(String contents) {
         this.contents = contents;
     }
+
+
+    public String getEdtMoney() {
+        return money;
+    }
+
+    public void setEdtMoney(String money) {
+        this.money = money;
+    }
+
 
     public String getPicture() {
         return picture;

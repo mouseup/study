@@ -45,6 +45,7 @@ public class Fragment2 extends Fragment {
     Button dateBtn;
 
     EditText contentsInput;
+    EditText edtMoney;
     ImageView pictureImageView;
 
     boolean isPhotoCaptured;
@@ -138,6 +139,9 @@ public class Fragment2 extends Fragment {
 
 
         contentsInput = rootView.findViewById(R.id.contentsInput);
+        edtMoney = rootView.findViewById(R.id.edtMoney);
+
+
         pictureImageView = rootView.findViewById(R.id.pictureImageView);
         pictureImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +203,13 @@ public class Fragment2 extends Fragment {
         contentsInput.setText(data);
     }
 
+
+    public void setEdtMoney(String data) {
+        edtMoney.setText(data);
+    }
+
+
+
     public void setPicture(String picturePath, int sampleSize) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = sampleSize;
@@ -219,7 +230,10 @@ public class Fragment2 extends Fragment {
             mMode = AppConstants.MODE_MODIFY;
 
             setDateString(item.getCreateDateStr());
+
             setContents(item.getContents());
+            setEdtMoney(item.getEdtMoney());
+
             String picturePath = item.getPicture();
             if (picturePath == null || picturePath.equals("")) {
                 pictureImageView.setImageResource(R.drawable.noimagefound);
@@ -235,6 +249,8 @@ public class Fragment2 extends Fragment {
             setDateString(currentDateString);
 
             contentsInput.setText("");
+            edtMoney.setText("");
+
             pictureImageView.setImageResource(R.drawable.noimagefound);
         }
 
@@ -457,13 +473,15 @@ public class Fragment2 extends Fragment {
      */
     private void saveNote() {
         String contents = contentsInput.getText().toString();
+        String money = edtMoney.getText().toString();
         String date = dateBtn.getText().toString();
 
         String picturePath = savePicture();
 
         String sql = "insert into " + NoteDatabase.TABLE_NOTE +
-                "(CONTENTS, PICTURE, CREATE_DATE) values(" +
+                "(CONTENTS, MONEY, PICTURE, CREATE_DATE) values(" +
                 "'"+ contents + "', " +
+                "'"+ money + "', " +
                 "'"+ picturePath + "', " +
                 "'"+ date + "')";
 
@@ -479,6 +497,7 @@ public class Fragment2 extends Fragment {
     private void modifyNote() {
         if (item != null) {
             String contents = contentsInput.getText().toString();
+            String money = edtMoney.getText().toString();
             String date = dateBtn.getText().toString();
 
             String picturePath = savePicture();
@@ -487,6 +506,7 @@ public class Fragment2 extends Fragment {
             String sql = "update " + NoteDatabase.TABLE_NOTE +
                     " set " +
                     "   CONTENTS = '" + contents + "'" +
+                    "   ,MONEY = '" + money + "'" +
                     "   ,PICTURE = '" + picturePath + "'" +
                     "   ,CREATE_DATE = '" + date + "'" +
                     " where " +
