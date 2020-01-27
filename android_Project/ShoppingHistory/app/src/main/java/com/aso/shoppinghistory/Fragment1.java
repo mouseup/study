@@ -30,6 +30,7 @@ public class Fragment1 extends Fragment {
 
     Button fromDate;
     Button toDate;
+    Button amount;
     Context context;
     OnTabItemSelectedListener listener;
     Calendar c;
@@ -136,6 +137,7 @@ public class Fragment1 extends Fragment {
         });
 
 
+        amount = rootView.findViewById(R.id.amount);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -185,12 +187,13 @@ public class Fragment1 extends Fragment {
             AppConstants.println("record count : " + recordCount + "\n");
 
             ArrayList<Note> items = new ArrayList<Note>();
-
+            int moneySum=0;
             for (int i = 0; i < recordCount; i++) {
                 outCursor.moveToNext();
 
                 int _id = outCursor.getInt(0);
                 String contents = outCursor.getString(1);
+                moneySum = moneySum + outCursor.getInt(2);
                 String money = Integer.toString(outCursor.getInt(2));
                 String picture = outCursor.getString(3);
                 String dateStr = outCursor.getString(4);
@@ -209,6 +212,7 @@ public class Fragment1 extends Fragment {
                 items.add(new Note(_id, contents, money, picture, dateStr));
             }
 
+            amount.setText(Integer.toString(moneySum)+"원");
             outCursor.close();
 
             adapter.setItems(items);
