@@ -6,16 +6,18 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.aso.shoppinghistory.R;
 import com.pedro.library.AutoPermissions;
 import com.pedro.library.AutoPermissionsListener;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity implements OnTabItemSelectedListener, AutoPermissionsListener {
     private static final String TAG = "MainActivity";
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
@@ -84,6 +87,42 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
 
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.menu_top, menu);
+        try{
+            Method method=menu.getClass().getDeclaredMethod("setOptionalIconsVisible", boolean.class);
+            method.setAccessible(true);
+            method.invoke(menu, true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+
+        switch(id) {
+            case R.id.menuSutup:
+                Toast.makeText(getApplicationContext(), "설정",
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.menuHelp:
+                Toast.makeText(getApplicationContext(), "도움말",
+                        Toast.LENGTH_SHORT).show();
+                return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void onTabSelected(int position) {
