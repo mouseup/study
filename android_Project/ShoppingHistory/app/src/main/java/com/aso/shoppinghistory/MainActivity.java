@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
     Fragment1 fragment1;
     Fragment2 fragment2;
     Fragment3 fragment3;
+    Fcategory fcategory;
 
     BottomNavigationView bottomNavigation;
 
@@ -38,10 +39,10 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
+        fcategory = new Fcategory();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
 
@@ -52,8 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
                 switch (item.getItemId()) {
                     case R.id.tab1:
                         Toast.makeText(getApplicationContext(), "첫 번째 탭 선택됨", Toast.LENGTH_LONG).show();
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, fragment1).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment1).commit();
 
                         return true;
                     case R.id.tab2:
@@ -61,14 +61,12 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
 
                         fragment2 = new Fragment2();
 
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, fragment2).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment2).commit();
 
                         return true;
                     case R.id.tab3:
                         Toast.makeText(getApplicationContext(), "세 번째 탭 선택됨", Toast.LENGTH_LONG).show();
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, fragment3).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment3).commit();
 
                         return true;
                 }
@@ -112,12 +110,12 @@ public class MainActivity extends AppCompatActivity implements OnTabItemSelected
 
         switch(id) {
             case R.id.menuSutup:
-                Toast.makeText(getApplicationContext(), "설정",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "카테고리", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, fcategory).commit();
                 return true;
+
             case R.id.menuHelp:
-                Toast.makeText(getApplicationContext(), "도움말",
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "도움말", Toast.LENGTH_SHORT).show();
                 return true;
         }
 
